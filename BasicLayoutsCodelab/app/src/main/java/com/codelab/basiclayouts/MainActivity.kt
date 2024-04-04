@@ -22,7 +22,9 @@ import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -30,6 +32,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -59,52 +63,52 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun SearchBar(
-        modifier: Modifier = Modifier
+    modifier: Modifier = Modifier
 ) {
     TextField(
-            value = "",
-            onValueChange = {},
-            leadingIcon = {
-                Icon(
-                        imageVector = Icons.Filled.Search,
-                        contentDescription = null
-                )
-            },
-            colors = TextFieldDefaults.colors(
-                    unfocusedContainerColor = MaterialTheme.colorScheme.surface,
-                    focusedContainerColor = MaterialTheme.colorScheme.surface
-            ),
-            placeholder = {
-                Text(stringResource(R.string.placeholder_search))
-            },
-            modifier = modifier
-                    .fillMaxWidth()
-                    .heightIn(min = 56.dp)
+        value = "",
+        onValueChange = {},
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Filled.Search,
+                contentDescription = null
+            )
+        },
+        colors = TextFieldDefaults.colors(
+            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+            focusedContainerColor = MaterialTheme.colorScheme.surface
+        ),
+        placeholder = {
+            Text(stringResource(R.string.placeholder_search))
+        },
+        modifier = modifier
+            .fillMaxWidth()
+            .heightIn(min = 56.dp)
     )
 }
 
 @Composable
 fun AlignYourBodyElement(
-        @DrawableRes drawable: Int,
-        @StringRes text: Int,
-        modifier: Modifier = Modifier
+    @DrawableRes drawable: Int,
+    @StringRes text: Int,
+    modifier: Modifier = Modifier
 ) {
     Column(
-            modifier = modifier,
-            horizontalAlignment = Alignment.CenterHorizontally
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-                painter = painterResource(drawable),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                        .size(88.dp)
-                        .clip(CircleShape)
+            painter = painterResource(drawable),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .size(88.dp)
+                .clip(CircleShape)
         )
         Text(
-                text = stringResource(text),
-                modifier = Modifier.paddingFromBaseline(top = 24.dp, bottom = 8.dp),
-                style = MaterialTheme.typography.bodyMedium
+            text = stringResource(text),
+            modifier = Modifier.paddingFromBaseline(top = 24.dp, bottom = 8.dp),
+            style = MaterialTheme.typography.bodyMedium
         )
     }
 }
@@ -145,7 +149,15 @@ fun FavoriteCollectionCard(
 fun AlignYourBodyRow(
     modifier: Modifier = Modifier
 ) {
-    // Implement composable here
+    LazyRow (
+        modifier = modifier,
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        items(alignYourBodyData) { item ->
+            AlignYourBodyElement(drawable = item.drawable, text = item.text)
+        }
+    }
 }
 
 // Step: Favorite collections grid - LazyGrid
@@ -190,7 +202,7 @@ private fun SootheNavigationRail(modifier: Modifier = Modifier) {
 
 // Step: Landscape Mode
 @Composable
-fun MySootheAppLandscape(){
+fun MySootheAppLandscape() {
     // Implement composable here
 }
 
