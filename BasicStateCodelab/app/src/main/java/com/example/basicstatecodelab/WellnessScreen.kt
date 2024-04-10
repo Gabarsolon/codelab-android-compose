@@ -2,17 +2,27 @@ package com.example.basicstatecodelab
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun WellnessScreen(modifier: Modifier = Modifier){
+fun WellnessScreen(
+    modifier: Modifier = Modifier,
+    wellnessViewModel: WellnessViewModel = viewModel(),
+) {
     Column(modifier) {
         StatefulCounter()
 
-        val list = remember { getWellnessTasksList().toMutableStateList()}
-        WellnessTasksList(tasks = list, onCloseTask = {task -> list.remove(task)})
+        val list = wellnessViewModel.tasks
+        WellnessTasksList(
+            tasks = list,
+            onCheckedChanged = { task, newValue ->
+                wellnessViewModel.changeTaskChecked(
+                    task,
+                    newValue
+                )
+            },
+            onCloseTask = { task -> wellnessViewModel.remove(task) }
+        )
     }
 }
-private fun getWellnessTasksList() = List(30) { i -> WellnessTask(i, "Task # $i") }
