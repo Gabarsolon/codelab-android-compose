@@ -49,7 +49,10 @@ fun ReplyEmailThreadItem(
         modifier = modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .background(MaterialTheme.colorScheme.background)
+            .background(
+                MaterialTheme.colorScheme.background,
+                MaterialTheme.shapes.medium
+            )
             .padding(20.dp)
     ) {
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -65,9 +68,11 @@ fun ReplyEmailThreadItem(
             ) {
                 Text(
                     text = email.sender.firstName,
+                    style = MaterialTheme.typography.labelMedium
                 )
                 Text(
                     text = stringResource(id = R.string.twenty_mins_ago),
+                    style = MaterialTheme.typography.labelMedium
                 )
             }
             IconButton(
@@ -86,10 +91,12 @@ fun ReplyEmailThreadItem(
         Text(
             text = email.subject,
             modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+            style = MaterialTheme.typography.titleLarge
         )
 
         Text(
             text = email.body,
+            style = MaterialTheme.typography.bodyLarge
         )
         Row(
             modifier = Modifier
