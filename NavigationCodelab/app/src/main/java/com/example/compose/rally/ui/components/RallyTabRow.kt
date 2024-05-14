@@ -92,6 +92,7 @@ private fun RallyTab(
         targetValue = if (selected) color else color.copy(alpha = InactiveTabOpacity),
         animationSpec = animSpec
     )
+
     Row(
         modifier = Modifier
             .padding(16.dp)
